@@ -1,14 +1,15 @@
 const bookModel = require("../models/bookModel");
 
 module.exports = {
-  async createBook() {
+  async createBook(req, res) {
     try {
-      const bookRequest = await bookModel.createBook(req);
+      await bookModel.createBook(req);
       res.status(200).json({
         message: "Book has been added successfully",
         status: true,
       });
     } catch (error) {
+      console.log(error);
       res.status(500).json({ error: true, message: "something went wrong" });
     }
   },
@@ -34,10 +35,10 @@ module.exports = {
       res.json({ error: true, message: "something went wrong!" });
     }
   },
-  async updateBook() {
+  async updateBook(req, res) {
     const { id } = req.params;
     try {
-      const updateBookRequest = await bookModel.updateBook(id, req);
+      await bookModel.updateBook(id, req);
       return res.status(200).json({
         success: true,
         message: "Book has been updated",
